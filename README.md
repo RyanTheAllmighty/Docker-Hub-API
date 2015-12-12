@@ -217,6 +217,20 @@ Below is an example of what's returned:
 }
 ```
 
+#### setRepositoryDescription(username, name, descriptions)
+This sets one or both of the descriptions for a repository you own.
+
+Passing in an object with the short, full, or both descriptions:
+
+```js
+{
+    short: "A short description",
+    full: "A full description"
+}
+```
+
+This returns the same information as [repository(username, name)](#repositoryusername-name).
+
 ## Support
 If you're having issues please feel free to [open an issue](https://github.com/RyanTheAllmighty/Docker-Hub-API/issues/new).
 
