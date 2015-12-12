@@ -26,14 +26,14 @@
     let jshint = require('gulp-jshint');
 
     gulp.task('jshint', function () {
-        return gulp.src(['app.js', 'inc/**/*.js', 'test/**/*.js'])
+        return gulp.src(['lib/**/*.js', 'test/**/*.js'])
             .pipe(jshint())
             .pipe(jshint.reporter())
             .pipe(jshint.reporter('fail'));
     });
 
     gulp.task('jscs', function () {
-        return gulp.src(['app.js', 'inc/**/*.js', 'test/**/*.js'])
+        return gulp.src(['lib/**/*.js', 'test/**/*.js'])
             .pipe(jscs())
             .pipe(jscs.reporter())
             .pipe(jscs.reporter('fail'));
@@ -49,7 +49,7 @@
     });
 
     gulp.task('watch', function () {
-        gulp.watch(['app.js', 'inc/**/*.js', 'test/**/*.js'], ['jshint', 'jscs', 'test']);
+        gulp.watch(['lib/**/*.js', 'test/**/*.js'], ['jshint', 'jscs', 'test']);
         gulp.start('default');
     });
 

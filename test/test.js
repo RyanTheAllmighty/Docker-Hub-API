@@ -31,6 +31,13 @@
             });
         });
 
+        it('should fetch details about an official nginx image when _ is passed in as the username', function () {
+            return dhAPI.repository('_', 'nginx').then(function (info) {
+                expect(info.user).to.equal('library');
+                expect(info.name).to.equal('nginx');
+            });
+        });
+
         it('should fetch details about a given users nginx image', function () {
             return dhAPI.repository('ryantheallmighty', 'nginx').then(function (info) {
                 expect(info.user).to.equal('ryantheallmighty');
