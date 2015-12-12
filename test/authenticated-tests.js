@@ -109,5 +109,26 @@
                 });
             });
         });
+
+        describe('#createWebhook', function () {
+            it('should create a webhook for a repository', function () {
+                return dhAPI.loggedInUser().then(function (user) {
+                    return dhAPI.repositories(user.username).then(function (repos) {
+                        if (repos.length === 0) {
+                            expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
+                        }
+
+                        let webhookName = `Test-${Date.now() / 1000}`;
+
+                        return dhAPI.createWebhook(user.username, repos[0].name, webhookName).then(function (info) {
+                            expect(info).to.be.an('object');
+                            expect(info).to.have.property('id');
+                            expect(info).to.have.property('name');
+                            expect(info.name).to.equal(webhookName);
+                        });
+                    });
+                });
+            });
+        });
     });
 })();
