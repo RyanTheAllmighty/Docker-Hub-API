@@ -110,7 +110,10 @@
             });
         });
 
-        describe('#createWebhook', function () {
+        describe('Webhook Modifying Methods', function () {
+            let webhookName = `Test-${Date.now() / 1000}`;
+            let webhookID;
+
             it('should create a webhook for a repository', function () {
                 return dhAPI.loggedInUser().then(function (user) {
                     return dhAPI.repositories(user.username).then(function (repos) {
@@ -118,13 +121,27 @@
                             expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
                         }
 
-                        let webhookName = `Test-${Date.now() / 1000}`;
-
                         return dhAPI.createWebhook(user.username, repos[0].name, webhookName).then(function (info) {
                             expect(info).to.be.an('object');
                             expect(info).to.have.property('id');
                             expect(info).to.have.property('name');
                             expect(info.name).to.equal(webhookName);
+
+                            webhookID = info.id;
+                        });
+                    });
+                });
+            });
+
+            it('should delete a webhook for a repository', function () {
+                return dhAPI.loggedInUser().then(function (user) {
+                    return dhAPI.repositories(user.username).then(function (repos) {
+                        if (repos.length === 0) {
+                            expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
+                        }
+
+                        return dhAPI.deleteWebhook(user.username, repos[0].name, webhookID).then(function () {
+                            expect([]).to.be.an('array'); // If were here we're all good
                         });
                     });
                 });

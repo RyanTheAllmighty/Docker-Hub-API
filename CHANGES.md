@@ -7,6 +7,7 @@ This file marks the changes in each version.
 - Add in `setRepositoryDescription` method to set the short/full description for your own repositories.
 - Add in `webhooks` method to get the webhooks for a repository you own.
 - Add in `createWebhook` method to create a webhook for a repository you own.
+- Add in `deleteWebhook` method to delete a webhook for a repository you own.
 
 ## 0.1
 ### 0.1.0

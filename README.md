@@ -251,6 +251,26 @@ Below is an example of what's returned:
 
 Once a webhook has been created you can then add hook urls to it with [createWebhookHook](#createWebhookHook) below.
 
+#### deleteWebhook(username, name, webhookID)
+This deletes a webhook for a repository you own.
+
+Below is an example of what's returned:
+
+```json
+{
+    "id": 8551,
+    "name": "Test",
+    "active": true,
+    "expect_final_callback": true,
+    "creator": "ryantheallmighty",
+    "last_updated": "2015-12-12T11:25:48.808294Z",
+    "last_updater": "ryantheallmighty",
+    "hooks": []
+}
+```
+
+Once a webhook has been created you can then add hook urls to it with [createWebhookHook](#createWebhookHook) below.
+
 #### webhooks(username, name, options)
 This gets the webhooks for a repository you own.
 
