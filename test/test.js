@@ -40,7 +40,6 @@
 
         it('should fetch details about a given users nginx image when the username is not all lowercase', function () {
             return dhAPI.repository('RyanTheAllmighty', 'nginx').then(function (info) {
-                console.log(info);
                 expect(info.user).to.equal('ryantheallmighty');
                 expect(info.name).to.equal('nginx');
             });
