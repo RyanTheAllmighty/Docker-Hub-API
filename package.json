@@ -1,0 +1,31 @@
+{
+    "name": "docker-hub-api",
+    "version": "0.0.1",
+    "description": "Docker Hub API is an API library written for NodeJS to access the official Docker Hub/Registry",
+    "main": "lib/api.js",
+    "engines": {
+        "node": ">=4.2.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/RyanTheAllmighty/Docker-Hub-API.git"
+    },
+    "author": "Ryan Dowling <ryan@ryandowling.me>",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/RyanTheAllmighty/Docker-Hub-API/issues"
+    },
+    "homepage": "https://github.com/RyanTheAllmighty/Docker-Hub-API",
+    "scripts": {
+        "test": "gulp"
+    },
+    "devDependencies": {
+        "chai": "^3.3.0",
+        "gulp": "^3.9.0",
+        "gulp-jscs": "^3.0.2",
+        "gulp-jshint": "^1.12.0",
+        "gulp-mocha": "^2.2.0",
+        "mocha": "^2.3.3",
+        "sinon": "^1.17.1"
+    }
+}
