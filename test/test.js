@@ -62,6 +62,40 @@
         });
     });
 
+    describe('#tags', function () {
+        it('should fetch all the tags for an official repository', function () {
+            return dhAPI.tags('nginx').then(function (info) {
+                expect(info).to.be.an('array');
+                expect(info.length).to.not.equal(1);
+                expect(info[0]).to.have.property('repository').and.equal(21171);
+            });
+        });
+
+        it('should fetch all the tags for a given users repository', function () {
+            return dhAPI.tags('ryantheallmighty', 'nginx').then(function (info) {
+                expect(info).to.be.an('array');
+                expect(info.length).to.not.equal(1);
+                expect(info[0]).to.have.property('creator').and.equal(534804);
+            });
+        });
+
+        it('should fetch a single result per page for an official repository', function () {
+            return dhAPI.tags('nginx', {perPage: 1}).then(function (info) {
+                expect(info).to.be.an('array');
+                expect(info.length).to.equal(1);
+                expect(info[0]).to.have.property('repository').and.equal(21171);
+            });
+        });
+
+        it('should fetch a single result per page for a given users repository', function () {
+            return dhAPI.tags('ryantheallmighty', 'nginx', {perPage: 1}).then(function (info) {
+                expect(info).to.be.an('array');
+                expect(info.length).to.equal(1);
+                expect(info[0]).to.have.property('creator').and.equal(534804);
+            });
+        });
+    });
+
     describe('#user', function () {
         it('should fetch details about a user', function () {
             return dhAPI.user('ryantheallmighty').then(function (info) {

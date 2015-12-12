@@ -74,6 +74,36 @@ Below is an example of what's returned:
 ]
 ```
 
+### tags(username, repository, options)
+This gets the tags for a given repository/user combination. As per the [repository](#repository-username-repository) method above, if the username is left out, it will query the official repository.
+
+You can also pass in options to limit the number of reaults per page and the page to go to like so:
+
+```js
+{
+    perPage: 10,
+    page: 4
+}
+```
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "name": "latest",
+        "full_size": 61215330,
+        "id": 1493440,
+        "repository": 433668,
+        "creator": 534804,
+        "last_updater": 534804,
+        "last_updated": "2015-12-10T08:48:48.697697Z",
+        "image_id": null,
+        "v2": true
+    }
+]
+```
+
 ### user(username)
 This gets information about a user with the given username.
 
