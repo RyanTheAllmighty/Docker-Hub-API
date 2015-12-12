@@ -74,10 +74,42 @@ Below is an example of what's returned:
 ]
 ```
 
+### repositoriesStarred(username, options)
+This gets information about a user's starred repositories.
+
+You can also pass in options to limit the number of results per page and the page to go to like so:
+
+```js
+{
+    perPage: 10,
+    page: 4
+}
+```
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "user": "ryantheallmighty",
+        "name": "nginx",
+        "namespace": "ryantheallmighty",
+        "status": 1,
+        "description": "Short description",
+        "is_private": false,
+        "is_automated": false,
+        "can_edit": false,
+        "star_count": 1,
+        "pull_count": 57,
+        "last_updated": "2015-12-10T08:48:49.665081Z"
+    }
+]
+```
+
 ### tags(username, repository, options)
 This gets the tags for a given repository/user combination. As per the [repository](#repository-username-repository) method above, if the username is left out, it will query the official repository.
 
-You can also pass in options to limit the number of reaults per page and the page to go to like so:
+You can also pass in options to limit the number of results per page and the page to go to like so:
 
 ```js
 {
