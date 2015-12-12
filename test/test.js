@@ -27,7 +27,6 @@
         this.timeout(10000);
 
         describe('#repository', function () {
-
             it('should fetch details about an official nginx image', function () {
                 return dhAPI.repository('nginx').then(function (info) {
                     expect(info.user).to.equal('library');

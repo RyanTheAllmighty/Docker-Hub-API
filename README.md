@@ -30,10 +30,49 @@ let dockerHubAPI = require('docker-hub-api');
 dockerHubAPI.setCacheOptions({enabled: true, time: 60}); // This will enable the cache and cache things for 60 seconds
 ```
 
+## Logging In
+In order to access authenticated routes of the API you must login.
+
+There are 2 methods available to do that.
+
+### login(username, password)
+This method logs in via the API and gets a login token for your account.
+
+For security purposes you should make sure to never commit any code with login details. Using environment variables is one way to get around that:
+
+```js
+let dockerHubAPI = require('docker-hub-api');
+dockerHubAPI.login(process.env.DOCKER_HUB_USERNAME, process.env.DOCKER_HUB_PASSWORD);
+```
+
+The login method also returns the response from Docker Hub which includes the login token if you wish to get that token:
+
+```js
+let dockerHubAPI = require('docker-hub-api');
+dockerHubAPI.login(process.env.DOCKER_HUB_USERNAME, process.env.DOCKER_HUB_PASSWORD).then(function(info) {
+    console.log(`My Docker Hub login token is '${info.token}'!`);
+});
+```
+
+### setLoginToken(token)
+This works similar to above, but uses an existing login token so that you don't need to make a login request.
+
+Again like above, you should move this off to an environment variable and never expose it:
+
+```js
+let dockerHubAPI = require('docker-hub-api');
+dockerHubAPI.setLoginToken(process.env.DOCKER_HUB_LOGIN_TOKEN);
+```
+
 ## Usage
 This is a complete list of methods available from this package. All methods return ES6 promises.
 
-### repository(username, name)
+There are 2 types of requests. Authenticated requests and non authenticated requests. As the names suggest, authenticated requests require you to have authenticated/logged in with Docker Hub.
+
+### Non Authenticated Requests
+These requests require no authentication and can be made right away with no issues.
+
+#### repository(username, name)
 This gets information about a repository with a given name. If the username is left out or '_' is provided, then it will get the base library repositories (official repositories).
 
 Below is a sample of what's returned:
@@ -56,7 +95,7 @@ Below is a sample of what's returned:
 }
 ```
 
-### repositories(username)
+#### repositories(username)
 This gets information about a user's repositories.
 
 Below is an example of what's returned:
@@ -74,7 +113,7 @@ Below is an example of what's returned:
 ]
 ```
 
-### repositoriesStarred(username, options)
+#### repositoriesStarred(username, options)
 This gets information about a user's starred repositories.
 
 You can also pass in options to limit the number of results per page and the page to go to like so:
@@ -106,7 +145,7 @@ Below is an example of what's returned:
 ]
 ```
 
-### tags(username, repository, options)
+#### tags(username, repository, options)
 This gets the tags for a given repository/user combination. As per the [repository](#repository-username-repository) method above, if the username is left out, it will query the official repository.
 
 You can also pass in options to limit the number of results per page and the page to go to like so:
@@ -136,7 +175,7 @@ Below is an example of what's returned:
 ]
 ```
 
-### user(username)
+#### user(username)
 This gets information about a user with the given username.
 
 Below is an example of what's returned:
@@ -148,6 +187,30 @@ Below is an example of what's returned:
     "full_name": "Ryan Dowling",
     "location": "Victoria, Australia",
     "company": "ATLauncher",
+    "profile_url": "",
+    "date_joined": "2015-12-01T10:42:00.663328Z",
+    "gravatar_url": "https://secure.gravatar.com/avatar/af74a121defc2d50f39c7ee3641131cc.jpg?s=80&r=g&d=mm"
+}
+```
+
+### Authenticated Requests
+These requests require you to [login](#logging-in) to Docker Hub to access.
+
+#### loggedInUser()
+This returns information about the current logged in user. It's good to make sure that the login is working.
+
+Below is an example of what's returned:
+
+```json
+{
+    "id": "73cdba6ec4154672a2ef01c292f38567",
+    "username": "ryantheallmighty",
+    "full_name": "Ryan Dowling",
+    "location": "Victoria, Australia",
+    "company": "ATLauncher",
+    "gravatar_email": "",
+    "is_staff": false,
+    "is_admin": false,
     "profile_url": "",
     "date_joined": "2015-12-01T10:42:00.663328Z",
     "gravatar_url": "https://secure.gravatar.com/avatar/af74a121defc2d50f39c7ee3641131cc.jpg?s=80&r=g&d=mm"
@@ -179,6 +242,17 @@ The gulpfile gives access to a few methods shown below:
 - watch: Runs all 3 main tasks and then watches for file changes to rerun those tasks constantly as files are changed.
 
 By default Gulp is set to run the jscs, jshint and test tasks when no arguments are provided to it.
+
+### Note about authentication
+The tests will test authenticated routes which require access to three environment variables to work correctly:
+
+- DOCKER_HUB_USERNAME
+- DOCKER_HUB_PASSWORD
+- DOCKER_HUB_LOGIN_TOKEN
+
+The values for these should be pretty straight forward besides the DOCKER_HUB_LOGIN_TOKEN which is a JWT token sent by Docker HUB after a login.
+
+The best way to retrieve it is to check your browsers cookies for 'https://hub.docker.com' and copy the contents of the cookie named 'jwt'.
 
 ## Coding standards & styling guidelines
 Please see the [STYLE.md](https://github.com/RyanTheAllmighty/Docker-Hub-API/blob/master/STYLE.md) file for coding standards and style guidelines.
