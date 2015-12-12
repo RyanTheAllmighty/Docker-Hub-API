@@ -23,8 +23,12 @@
 
     let dhAPI = require('../lib/api');
 
-    describe('Docker Hub API - Authenticated Routes', function () {
+    describe('Docker Hub API - Logging In', function () {
         this.timeout(10000);
+
+        before(function() {
+            dhAPI.setCacheOptions({enabled: false});
+        });
 
         describe('#login', function () {
             it('should login to a Docker Hub account', function () {
@@ -42,14 +46,31 @@
 
         describe('#setLoginToken', function () {
             it('should allow authenticated requests after setting the login token', function () {
-                dhAPI.setCacheOptions({enabled: false});
                 dhAPI.setLoginToken(process.env.DOCKER_HUB_LOGIN_TOKEN);
 
                 return dhAPI.loggedInUser().then(function (info) {
                     expect(info).to.have.property('id');
                     expect(info).to.have.property('username');
                     expect(info).to.have.property('is_admin');
-                    dhAPI.setCacheOptions({enabled: true});
+                });
+            });
+        });
+    });
+
+    describe('Docker Hub API - Authenticated Routes', function () {
+        this.timeout(10000);
+
+        before(function() {
+            dhAPI.setCacheOptions({enabled: true});
+            dhAPI.setLoginToken(process.env.DOCKER_HUB_LOGIN_TOKEN);
+        });
+
+        describe('#loggedInUser', function () {
+            it('should allow authenticated requests after setting the login token', function () {
+                return dhAPI.loggedInUser().then(function (info) {
+                    expect(info).to.have.property('id');
+                    expect(info).to.have.property('username');
+                    expect(info).to.have.property('is_admin');
                 });
             });
         });
