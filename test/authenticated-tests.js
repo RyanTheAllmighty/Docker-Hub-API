@@ -133,6 +133,23 @@
                 });
             });
 
+            it('should create a webhook hook for an existing webhook', function () {
+                return dhAPI.loggedInUser().then(function (user) {
+                    return dhAPI.repositories(user.username).then(function (repos) {
+                        if (repos.length === 0) {
+                            expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
+                        }
+
+                        return dhAPI.createWebhookHook(user.username, repos[0].name, webhookID, 'http://www.example.com').then(function (info) {
+                            expect(info).to.be.an('object');
+                            expect(info).to.have.property('id');
+                            expect(info).to.have.property('hook_url');
+                            expect(info.hook_url).to.equal('http://www.example.com');
+                        });
+                    });
+                });
+            });
+
             it('should delete a webhook for a repository', function () {
                 return dhAPI.loggedInUser().then(function (user) {
                     return dhAPI.repositories(user.username).then(function (repos) {
