@@ -29,7 +29,7 @@
         describe('#login', function () {
             it('should login to a Docker Hub account', function () {
                 return dhAPI.login(process.env.DOCKER_HUB_USERNAME, process.env.DOCKER_HUB_PASSWORD).then(function (info) {
-                    expect(info.token).to.not.be.undefined;
+                    expect(info).to.not.be.an('undefined');
 
                     return dhAPI.loggedInUser();
                 }).then(function (info) {
