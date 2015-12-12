@@ -146,7 +146,7 @@ Below is an example of what's returned:
 ```
 
 #### tags(username, repository, options)
-This gets the tags for a given repository/user combination. As per the [repository](#repository-username-repository) method above, if the username is left out, it will query the official repository.
+This gets the tags for a given repository/user combination. As per the [repository](#repositoryusername-repository) method above, if the username is left out, it will query the official repository.
 
 You can also pass in options to limit the number of results per page and the page to go to like so:
 
@@ -230,6 +230,45 @@ Passing in an object with the short, full, or both descriptions:
 ```
 
 This returns the same information as [repository(username, name)](#repositoryusername-name).
+
+#### webhooks(username, name, options)
+This gets the webhooks for a repository you own.
+
+You can also pass in options to limit the number of results per page and the page to go to like so:
+
+```js
+{
+    perPage: 10,
+    page: 4
+}
+```
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "id": 8550,
+        "name": "Test",
+        "active": true,
+        "expect_final_callback": true,
+        "creator": "ryantheallmighty",
+        "last_updated": "2015-12-12T11:19:08.163295Z",
+        "last_updater": "ryantheallmighty",
+        "hooks": [
+            {
+                "id": 10014,
+                "creator": "ryantheallmighty",
+                "last_updater": "ryantheallmighty",
+                "hook_url": "https://www.example.com",
+                "date_added": "2015-12-12T11:19:08.474922Z",
+                "last_updated": "2015-12-12T11:19:08.477809Z",
+                "active": true
+            }
+        ]
+    }
+]
+```
 
 ## Support
 If you're having issues please feel free to [open an issue](https://github.com/RyanTheAllmighty/Docker-Hub-API/issues/new).

@@ -93,5 +93,21 @@
                 });
             });
         });
+
+        describe('#webhooks', function () {
+            it('should get the webhooks for a repository', function () {
+                return dhAPI.loggedInUser().then(function (user) {
+                    return dhAPI.repositories(user.username).then(function (repos) {
+                        if (repos.length === 0) {
+                            expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
+                        }
+
+                        return dhAPI.webhooks(user.username, repos[0].name).then(function (info) {
+                            expect(info).to.be.an('array');
+                        });
+                    });
+                });
+            });
+        });
     });
 })();
