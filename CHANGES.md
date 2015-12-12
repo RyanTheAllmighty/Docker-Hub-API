@@ -4,6 +4,7 @@ This file marks the changes in each version.
 ## 0.2
 ### 0.2.0
 #### Additions
+- Add in `comments` method to get the comments for a repository.
 - Add in `setRepositoryDescription` method to set the short/full description for your own repositories.
 - Add in `webhooks` method to get the webhooks for a repository you own.
 - Add in `createWebhook` method to create a webhook for a repository you own.

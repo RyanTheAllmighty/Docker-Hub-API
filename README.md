@@ -72,6 +72,39 @@ There are 2 types of requests. Authenticated requests and non authenticated requ
 ### Non Authenticated Requests
 These requests require no authentication and can be made right away with no issues.
 
+#### comments(username, repository, options)
+This gets the comments for a given repository/user combination. As per the [repository](#repositoryusername-repository) method above, if the username is left out, it will query the official repository.
+
+You can also pass in options to limit the number of results per page and the page to go to like so:
+
+```js
+{
+    perPage: 10,
+    page: 4
+}
+```
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "id": 1035,
+        "user": "kyma",
+        "comment": "What OS is this built on?",
+        "created_on": "2014-06-09T16:27:15Z",
+        "updated_on": "2014-06-09T16:27:16Z"
+    },
+    {
+        "id": 1042,
+        "user": "hacfi",
+        "comment": "@kyma debian:jessie ... see\r\nhttps://github.com/docker-library/nginx/blob/docker-v1.7.1/Dockerfile#L1",
+        "created_on": "2014-06-09T20:27:55Z",
+        "updated_on": "2014-06-09T20:27:56Z"
+    }
+]
+```
+
 #### repository(username, name)
 This gets information about a repository with a given name. If the username is left out or '_' is provided, then it will get the base library repositories (official repositories).
 

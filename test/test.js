@@ -26,6 +26,16 @@
     describe('Docker Hub API', function () {
         this.timeout(10000);
 
+        describe('#comments', function () {
+            it('should fetch all the repositories for a user', function () {
+                return dhAPI.comments('nginx').then(function (info) {
+                    expect(info).to.be.an('array');
+                    expect(info[0]).to.have.property('id');
+                    expect(info[0]).to.have.property('comment');
+                });
+            });
+        });
+
         describe('#repository', function () {
             it('should fetch details about an official nginx image', function () {
                 return dhAPI.repository('nginx').then(function (info) {
