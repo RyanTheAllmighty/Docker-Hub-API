@@ -20,6 +20,42 @@ Once installed you can start to use this package by requiring the module:
 let dockerHubAPI = require('docker-hub-api');
 ```
 
+## Caching
+This package will be default cache all calls to the same resource for 5 minutes so that calls to the same resource returning the same data will not re query the Docker Hub API.
+
+This can be turned off or the expire time adjusted by adding the following code:
+
+```js
+let dockerHubAPI = require('docker-hub-api');
+dockerHubAPI.setCacheOptions({enabled: true, time: 60}); // This will enable the cache and cache things for 60 seconds
+```
+
+## Usage
+This is a complete list of methods available from this package. All methods return ES6 promises.
+
+### repository(username, name)
+This gets information about a repository with a given name. If the username is left out or '_' is provided, then it will get the base library repositories (official repositories).
+
+Below is a sample of what's returned:
+
+```json
+{
+    "user": "ryantheallmighty",
+    "name": "nginx",
+    "namespace": "ryantheallmighty",
+    "status": 1,
+    "description": "A short description",
+    "is_private": false,
+    "is_automated": false,
+    "can_edit": false,
+    "star_count": 0,
+    "pull_count": 55,
+    "last_updated": "2015-12-10T08:48:49.665081Z",
+    "has_starred": false,
+    "full_description": "A full description"
+}
+```
+
 ## Support
 If you're having issues please feel free to [open an issue](https://github.com/RyanTheAllmighty/Docker-Hub-API/issues/new).
 

@@ -23,9 +23,27 @@
 
     let dhAPI = require('../lib/api');
 
-    describe('#test', function () {
-        it('should return test', function () {
-            expect(dhAPI.test()).to.equal('test');
+    describe('#repository', function () {
+        it('should fetch details about an official nginx image', function () {
+            return dhAPI.repository('nginx').then(function (info) {
+                expect(info.user).to.equal('library');
+                expect(info.name).to.equal('nginx');
+            });
+        });
+
+        it('should fetch details about a given users nginx image', function () {
+            return dhAPI.repository('ryantheallmighty', 'nginx').then(function (info) {
+                expect(info.user).to.equal('ryantheallmighty');
+                expect(info.name).to.equal('nginx');
+            });
+        });
+
+        it('should fetch details about a given users nginx image when the username is not all lowercase', function () {
+            return dhAPI.repository('RyanTheAllmighty', 'nginx').then(function (info) {
+                console.log(info);
+                expect(info.user).to.equal('ryantheallmighty');
+                expect(info.name).to.equal('nginx');
+            });
         });
     });
 })();
