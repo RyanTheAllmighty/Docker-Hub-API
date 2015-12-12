@@ -26,7 +26,7 @@
     describe('Docker Hub API - Logging In', function () {
         this.timeout(10000);
 
-        before(function() {
+        before(function () {
             dhAPI.setCacheOptions({enabled: false});
         });
 
@@ -60,17 +60,36 @@
     describe('Docker Hub API - Authenticated Routes', function () {
         this.timeout(10000);
 
-        before(function() {
+        before(function () {
             dhAPI.setCacheOptions({enabled: true});
             dhAPI.setLoginToken(process.env.DOCKER_HUB_LOGIN_TOKEN);
         });
 
         describe('#loggedInUser', function () {
-            it('should allow authenticated requests after setting the login token', function () {
+            it('should get information about the logged in user', function () {
                 return dhAPI.loggedInUser().then(function (info) {
                     expect(info).to.have.property('id');
                     expect(info).to.have.property('username');
                     expect(info).to.have.property('is_admin');
+                });
+            });
+        });
+
+        describe('#setRepositoryDescription', function () {
+            it('should set the descriptions for a repository', function () {
+                return dhAPI.loggedInUser().then(function (user) {
+                    return dhAPI.repositories(user.username).then(function (repos) {
+                        if (repos.length === 0) {
+                            expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
+                        }
+
+                        return dhAPI.repository(user.username, repos[0].name).then(function (repo) {
+                            return dhAPI.setRepositoryDescription(user.username, repos[0].name, {short: repo.description, full: repo.full_description}).then(function (info) {
+                                expect(info).to.have.property('user');
+                                expect(info).to.have.property('name');
+                            });
+                        });
+                    });
                 });
             });
         });

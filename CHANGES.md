@@ -1,6 +1,11 @@
 # Changes
 This file marks the changes in each version.
 
+## 0.2
+### 0.2.0
+#### Additions
+- Add in `setRepositoryDescription` method to set the short/full description for your own repositories.
+
 ## 0.1
 ### 0.1.0
 #### Additions
@@ -9,7 +14,7 @@ This file marks the changes in each version.
 ## 0.0
 ### 0.0.2
 #### Additions
-- Addition of a bunch of stuff (tehcnical I know).
+- Addition of a bunch of stuff (technical I know).
 
 ### 0.0.1
 #### Additions
