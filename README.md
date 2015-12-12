@@ -56,6 +56,42 @@ Below is a sample of what's returned:
 }
 ```
 
+### repositories(username)
+This gets information about a user's repositories.
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "namespace": "ryantheallmighty",
+        "name": "composer"
+    },
+    {
+        "namespace": "ryantheallmighty",
+        "name": "hhvm"
+    }
+]
+```
+
+### user(username)
+This gets information about a user with the given username.
+
+Below is an example of what's returned:
+
+```json
+{
+    "id": "73cdba6ec4154672a2ef01c292f38567",
+    "username": "ryantheallmighty",
+    "full_name": "Ryan Dowling",
+    "location": "Victoria, Australia",
+    "company": "ATLauncher",
+    "profile_url": "",
+    "date_joined": "2015-12-01T10:42:00.663328Z",
+    "gravatar_url": "https://secure.gravatar.com/avatar/af74a121defc2d50f39c7ee3641131cc.jpg?s=80&r=g&d=mm"
+}
+```
+
 ## Support
 If you're having issues please feel free to [open an issue](https://github.com/RyanTheAllmighty/Docker-Hub-API/issues/new).
 

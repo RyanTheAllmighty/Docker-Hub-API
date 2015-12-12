@@ -52,4 +52,22 @@
             });
         });
     });
+
+    describe('#repositories', function () {
+        it('should fetch all the repositories for a user', function () {
+            return dhAPI.repositories('ryantheallmighty').then(function (info) {
+                expect(info).to.be.an('array');
+                expect(info[0]).to.have.property('namespace').and.equal('ryantheallmighty');
+            });
+        });
+    });
+
+    describe('#user', function () {
+        it('should fetch details about a user', function () {
+            return dhAPI.user('ryantheallmighty').then(function (info) {
+                expect(info.id).to.equal('73cdba6ec4154672a2ef01c292f38567');
+                expect(info.username).to.equal('ryantheallmighty');
+            });
+        });
+    });
 })();
