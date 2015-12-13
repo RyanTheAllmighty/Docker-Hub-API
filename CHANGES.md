@@ -2,6 +2,10 @@
 This file marks the changes in each version.
 
 ## 0.3
+### 0.3.1
+#### Fixes
+- Fix issue with creating non private repositories.
+
 ### 0.3.0
 #### Additions
 - Add in `starRepository` and `unstarRepository` methods to star/unstar a given repository.

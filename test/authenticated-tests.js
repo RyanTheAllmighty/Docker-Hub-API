@@ -134,8 +134,10 @@
                             expect(info).to.be.an('object');
                             expect(info).to.have.property('user');
                             expect(info).to.have.property('name');
+                            expect(info).to.have.property('is_private');
                             expect(info.user).to.equal(user.username);
                             expect(info.name).to.equal(repositoryName);
+                            expect(info.is_private).to.equal(false);
                         });
                     });
                 });
