@@ -1,6 +1,11 @@
 # Changes
 This file marks the changes in each version.
 
+## 0.3
+### 0.3.0
+#### Additions
+- Add in `starRepository` and `unstarRepository` method to star/unstar a given repository.
+
 ## 0.2
 ### 0.2.0
 #### Additions

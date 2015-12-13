@@ -94,6 +94,40 @@
             });
         });
 
+        describe('Starring Repository Methods', function () {
+            describe('#starRepository', function () {
+                it('should star a given repository', function () {
+                    return dhAPI.loggedInUser().then(function (user) {
+                        return dhAPI.repositories(user.username).then(function (repos) {
+                            if (repos.length === 0) {
+                                expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
+                            }
+
+                            return dhAPI.repository(user.username, repos[0].name).then(function (repo) {
+                                return dhAPI.starRepository(user.username, repos[0].name);
+                            });
+                        });
+                    });
+                });
+            });
+
+            describe('#unstarRepository', function () {
+                it('should star a given repository', function () {
+                    return dhAPI.loggedInUser().then(function (user) {
+                        return dhAPI.repositories(user.username).then(function (repos) {
+                            if (repos.length === 0) {
+                                expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
+                            }
+
+                            return dhAPI.repository(user.username, repos[0].name).then(function (repo) {
+                                return dhAPI.unstarRepository(user.username, repos[0].name);
+                            });
+                        });
+                    });
+                });
+            });
+        });
+
         describe('#webhooks', function () {
             it('should get the webhooks for a repository', function () {
                 return dhAPI.loggedInUser().then(function (user) {
