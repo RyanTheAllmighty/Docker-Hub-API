@@ -306,6 +306,16 @@ This deletes a webhook for a repository you own.
 
 This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
 
+#### starRepository(username, name)
+This stars a given repository.
+
+This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
+
+#### unstarRepository(username, name)
+This unstars a given repository.
+
+This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
+
 #### webhooks(username, name, options)
 This gets the webhooks for a repository you own.
 
