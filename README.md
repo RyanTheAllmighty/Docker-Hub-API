@@ -264,6 +264,38 @@ Passing in an object with the short, full, or both descriptions:
 
 This returns the same information as [repository(username, name)](#repositoryusername-name).
 
+#### createRepository(username, name, details)
+This creates a new repository under the username and name provided with the details provided.
+
+Passing in an object with the details:
+
+```js
+{
+    description: "Test",
+    full_description: "Test",
+    is_private: false
+}
+```
+
+Below is an example of what's returned:
+
+```json
+{
+    "user": "ryantheallmighty",
+    "name": "test",
+    "namespace": "ryantheallmighty",
+    "status": 0,
+    "description": "Test",
+    "is_private": false,
+    "is_automated": false,
+    "can_edit": true,
+    "star_count": 0,
+    "pull_count": 0,
+    "last_updated": null,
+    "full_description": "Test"
+}
+```
+
 #### createWebhook(username, name, webhookName)
 This creates a new webhook for a repository you own.
 
@@ -300,6 +332,13 @@ Below is an example of what's returned:
     "active": true
 }
 ```
+
+#### deleteRepository(username, name)
+This deletes a repository you own.
+
+**WARNING**: There is no going back once this method is called! So be absolutely sure this is what you want.
+
+This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
 
 #### deleteWebhook(username, name, webhookID)
 This deletes a webhook for a repository you own.

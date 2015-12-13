@@ -4,7 +4,8 @@ This file marks the changes in each version.
 ## 0.3
 ### 0.3.0
 #### Additions
-- Add in `starRepository` and `unstarRepository` method to star/unstar a given repository.
+- Add in `starRepository` and `unstarRepository` methods to star/unstar a given repository.
+- Add in `createRepository` and `deleteRepository` methods to create/delete a repository.
 
 ## 0.2
 ### 0.2.0

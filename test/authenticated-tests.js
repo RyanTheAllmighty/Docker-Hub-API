@@ -103,9 +103,7 @@
                                 expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
                             }
 
-                            return dhAPI.repository(user.username, repos[0].name).then(function (repo) {
-                                return dhAPI.starRepository(user.username, repos[0].name);
-                            });
+                            return dhAPI.starRepository(user.username, repos[0].name);
                         });
                     });
                 });
@@ -119,10 +117,34 @@
                                 expect([]).to.be.an('undefined'); // Fail this test since we cannot progress
                             }
 
-                            return dhAPI.repository(user.username, repos[0].name).then(function (repo) {
-                                return dhAPI.unstarRepository(user.username, repos[0].name);
-                            });
+                            return dhAPI.unstarRepository(user.username, repos[0].name);
                         });
+                    });
+                });
+            });
+        });
+
+        describe('Creating Repository Methods', function () {
+            let repositoryName = `test-${Date.now() / 1000}`;
+
+            describe('#createRepository', function () {
+                it('should create a repository', function () {
+                    return dhAPI.loggedInUser().then(function (user) {
+                        return dhAPI.createRepository(user.username, repositoryName, {is_private: false, description: 'Test', full_description: 'Test'}).then(function (info) {
+                            expect(info).to.be.an('object');
+                            expect(info).to.have.property('user');
+                            expect(info).to.have.property('name');
+                            expect(info.user).to.equal(user.username);
+                            expect(info.name).to.equal(repositoryName);
+                        });
+                    });
+                });
+            });
+
+            describe('#deleteRepository', function () {
+                it('should delete a repository', function () {
+                    return dhAPI.loggedInUser().then(function (user) {
+                        return dhAPI.deleteRepository(user.username, repositoryName);
                     });
                 });
             });
