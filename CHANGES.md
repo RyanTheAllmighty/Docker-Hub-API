@@ -1,6 +1,11 @@
 # Changes
 This file marks the changes in each version.
 
+## 0.4
+### 0.4.0
+#### Additions
+- Add in `deleteTag` thanks to @Borales.
+
 ## 0.3
 ### 0.3.1
 #### Fixes
