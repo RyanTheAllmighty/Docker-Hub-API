@@ -23,6 +23,8 @@
 
     let dhAPI = require('../lib/api');
 
+    let loginToken = process.env.DOCKER_HUB_LOGIN_TOKEN;
+
     describe('Docker Hub API - Logging In', function () {
         this.timeout(10000);
 
@@ -35,6 +37,8 @@
                 return dhAPI.login(process.env.DOCKER_HUB_USERNAME, process.env.DOCKER_HUB_PASSWORD).then(function (info) {
                     expect(info).to.not.be.an('undefined');
 
+                    loginToken = info.token;
+
                     return dhAPI.loggedInUser();
                 }).then(function (info) {
                     expect(info).to.have.property('id');
@@ -46,7 +50,7 @@
 
         describe('#setLoginToken', function () {
             it('should allow authenticated requests after setting the login token', function () {
-                dhAPI.setLoginToken(process.env.DOCKER_HUB_LOGIN_TOKEN);
+                dhAPI.setLoginToken(loginToken);
 
                 return dhAPI.loggedInUser().then(function (info) {
                     expect(info).to.have.property('id');
@@ -62,7 +66,7 @@
 
         before(function () {
             dhAPI.setCacheOptions({enabled: true});
-            dhAPI.setLoginToken(process.env.DOCKER_HUB_LOGIN_TOKEN);
+            dhAPI.setLoginToken(loginToken);
         });
 
         describe('#loggedInUser', function () {
