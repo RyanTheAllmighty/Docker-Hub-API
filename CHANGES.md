@@ -4,7 +4,7 @@ This file marks the changes in each version.
 ## 0.4
 ### 0.4.0
 #### Additions
-- Add in `deleteTag` thanks to @Borales.
+- Add in `deleteTag` thanks to [Borales](https://github.com/Borales).
 
 ## 0.3
 ### 0.3.1
