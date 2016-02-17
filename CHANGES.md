@@ -1,6 +1,11 @@
 # Changes
 This file marks the changes in each version.
 
+## 0.5
+### 0.5.0
+#### Additions
+- Add in methods for querying and interacting with automated builds.
+
 ## 0.4
 ### 0.4.0
 #### Additions

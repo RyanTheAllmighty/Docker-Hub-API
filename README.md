@@ -264,6 +264,200 @@ Passing in an object with the short, full, or both descriptions:
 
 This returns the same information as [repository(username, name)](#repositoryusername-name).
 
+#### buildDetails(username, repository, code)
+This gets the details for a given build code for a given repository/user combination.
+
+Below is an example of what's returned:
+
+```json
+{
+    "id": 3333355,
+    "status": -1,
+    "created_date": "2016-01-28T09:39:11.261907Z",
+    "last_updated": "2016-01-28T09:43:27.832295Z",
+    "build_code": "bxfqrgppbdi3dhiumvp7k3",
+    "dockertag_name": "latest",
+    "cause": null,
+    "build_results": {
+        "build_code": "bxfqrgppbdi3dhiumvp7k3",
+        "build_path": "/",
+        "buildmetrics": {
+            "uploaded": null,
+            "built": null,
+            "created": "2016-01-28T09:38:01.272772Z",
+            "started": "2016-01-28T09:41:14.249883Z",
+            "cloned": "2016-01-28T09:42:15.427018Z",
+            "readme": "2016-01-28T09:41:16.314344Z",
+            "finished": null,
+            "error": "2016-01-28T09:41:18.388163Z",
+            "claimed": "2016-01-28T09:37:02.230838Z",
+            "bundled": null,
+            "dockerfile": "2016-01-28T09:41:17.398032Z",
+            "failure": null
+        },
+        "created_at": "2016-01-28T09:39:11.261Z",
+        "docker_repo": "ryantheallmighty/maven-custom",
+        "docker_tag": "latest",
+        "docker_user": "ryantheallmighty",
+        "dockerfile_contents": "FROM 3-jdk-8\n\nRUN apt-get update && apt-get install -y sudo && echo \"ALL ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers && rm -rf /var/lib/apt/lists/*\n",
+        "error": "Build process failed: Error: image library/3-jdk-8:latest not found",
+        "failure": "Build failed: Error: image library/3-jdk-8:latest not found",
+        "last_updated": "2016-01-28T09:43:27.832Z",
+        "logs": "Cloning into 'bxfqrgppbdi3dhiumvp7k3'...\nKernelVersion: 3.13.0-40-generic\nOs: linux\nBuildTime: Mon Oct 12 05:37:18 UTC 2015\nApiVersion: 1.20\nVersion: 1.8.3\nGitCommit: f4bf5c7\nArch: amd64\nGoVersion: go1.4.2\nStep 0 : FROM 3-jdk-8\nError: image library/3-jdk-8:latest not found",
+        "readme_contents": "# docker-maven-custom\nThis is a custom Docker image with Maven with sudo installed to allow non root users to run commands\n",
+        "source_branch": "master",
+        "source_type": "git",
+        "source_url": "https://github.com/RyanTheAllmighty/docker-maven-custom.git"
+    }
+}
+```
+
+#### buildHistory(username, repository, options)
+This gets the build history for a given repository/user combination.
+
+You can also pass in options to limit the number of results per page and the page to go to like so:
+
+```js
+{
+    perPage: 10,
+    page: 4
+}
+```
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "id": 3333420,
+        "status": 10,
+        "created_date": "2016-01-28T09:44:47.667135Z",
+        "last_updated": "2016-01-28T09:55:56.381992Z",
+        "build_code": "bhgpwqvc69xxhqnqnxukurq",
+        "dockertag_name": "latest",
+        "cause": null
+    },
+    {
+        "id": 3333355,
+        "status": -1,
+        "created_date": "2016-01-28T09:39:11.261907Z",
+        "last_updated": "2016-01-28T09:43:27.832295Z",
+        "build_code": "bxfqrgppbdi3dhiumvp7k3",
+        "dockertag_name": "latest",
+        "cause": null
+    }
+]
+```
+
+The status refers to the outcome of the build where:
+
+- -1 means it failed
+- 10 means it succeeded
+
+There may be other status codes but those are the ones I'm aware of.
+
+I'm unaware of any cases where cause doesn't equal null.
+
+#### buildLinks(username, repository)
+This gets the build links for a given repository/user combination.
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "id": 12959,
+        "from_repo": "ryantheallmighty/maven-custom",
+        "to_repo": "maven"
+    }
+]
+```
+
+#### buildSettings(username, repository)
+This gets the build settings for a given repository/user combination. This doesn't include links or build triggers.
+
+Below is an example of what's returned:
+
+```json
+{
+    "repository": 501609,
+    "build_name": "RyanTheAllmighty/docker-maven-custom",
+    "provider": "github",
+    "source_url": "https://github.com/RyanTheAllmighty/docker-maven-custom.git",
+    "docker_url": "ryantheallmighty/maven-custom",
+    "repo_web_url": "https://github.com/RyanTheAllmighty/docker-maven-custom",
+    "repo_type": "git",
+    "active": true,
+    "repo_id": "50572157",
+    "build_tags": [
+        {
+            "id": 213846,
+            "name": "{sourceref}",
+            "dockerfile_location": "/",
+            "source_name": "/^([^m]|.[^a]|..[^s]|...[^t]|....[^e]|.....[^r]|.{0,5}$|.{7,})/",
+            "source_type": "Branch"
+        },
+        {
+            "id": 213845,
+            "name": "latest",
+            "dockerfile_location": "/",
+            "source_name": "master",
+            "source_type": "Branch"
+        }
+    ],
+    "deploykey": null,
+    "hook_id": null,
+    "webhook_id": "7097505"
+}
+```
+
+#### buildTrigger(username, repository)
+This gets the build trigger for a given repository/user combination.
+
+Below is an example of what's returned:
+
+```json
+{
+    "token": "UUID-HERE",
+    "active": true,
+    "trigger_url": "https://registry.hub.docker.com/u/ryantheallmighty/maven-custom/trigger/UUID-HERE/"
+}
+```
+
+#### buildTriggerHistory(username, repository)
+This gets the build triggers for a given repository/user combination.
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "ip_address": "203.219.62.185                         ",
+        "result": "triggered",
+        "result_desc": "Build Triggered",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.109 Safari/537.36",
+        "request_body": null,
+        "created": "2016-02-17T01:49:36.614030Z",
+        "build_code": "bqxx7gwbqgbn9pvs72vthnz"
+    }
+]
+```
+
+In my testing the ip_address filed contained a large amount of whitespace after the actual IP address. I've left this in as Docker Hub returns it, so you may wish to do your own trimming.
+
+#### createBuildLink(username, repository, to_repo)
+This creates a build link to a given repsitory to the given to_repo which should be in format 'username/repository' or just 'repository' for official repositories.
+
+Below is an example of what's returned:
+
+```json
+{
+    "id": 13924,
+    "from_repo": "ryantheallmighty/maven-custom",
+    "to_repo": "debian"
+}
+```
+
 #### createRepository(username, name, details)
 This creates a new repository under the username and name provided with the details provided.
 
@@ -332,6 +526,11 @@ Below is an example of what's returned:
     "active": true
 }
 ```
+
+#### deleteBuildLink(username, name, id)
+This deletes a build link given by the id for the given respository.
+
+This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
 
 #### deleteRepository(username, name)
 This deletes a repository you own.
