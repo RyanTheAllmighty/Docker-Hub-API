@@ -250,20 +250,6 @@ Below is an example of what's returned:
 }
 ```
 
-#### setRepositoryDescription(username, name, descriptions)
-This sets one or both of the descriptions for a repository you own.
-
-Passing in an object with the short, full, or both descriptions:
-
-```js
-{
-    short: "A short description",
-    full: "A full description"
-}
-```
-
-This returns the same information as [repository(username, name)](#repositoryusername-name).
-
 #### buildDetails(username, repository, code)
 This gets the details for a given build code for a given repository/user combination.
 
@@ -579,6 +565,22 @@ This deletes a webhook for a repository you own.
 
 This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
 
+#### registrySettings()
+This gets the registry settings for the current logged in user containing information about the number of private repositories used/available.
+
+Below is an example of what's returned:
+
+```json
+{
+    "private_repo_used": 0,
+    "num_free_private_repos": 0,
+    "private_repo_limit": 1,
+    "private_repo_available": 1,
+    "private_repo_percent_used": 0.0,
+    "default_repo_visibility": "public"
+}
+```
+
 #### saveBuildTag(username, repository, id, details)
 This saves the details of a given build tag id in the given repository.
 
@@ -611,6 +613,19 @@ Below is an example of what's returned:
 
 Please note that trying to trigger a build with details which don't match any of the repositories build tags will have no effect and will return an empty array.
 
+#### setRepositoryDescription(username, name, descriptions)
+This sets one or both of the descriptions for a repository you own.
+
+Passing in an object with the short, full, or both descriptions:
+
+```js
+{
+    short: "A short description",
+    full: "A full description"
+}
+```
+
+This returns the same information as [repository(username, name)](#repositoryusername-name).
 
 #### starRepository(username, name)
 This stars a given repository.

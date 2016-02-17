@@ -5,6 +5,7 @@ This file marks the changes in each version.
 ### 0.5.0
 #### Additions
 - Add in methods for querying and interacting with automated builds.
+- Add in `registrySettings` method to get registry settings (number of private repositories available/used) for the logged in user.
 
 ## 0.4
 ### 0.4.0
