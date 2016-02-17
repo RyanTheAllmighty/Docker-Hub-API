@@ -431,6 +431,19 @@ Below is an example of what's returned:
 
 In my testing the ip_address filed contained a large amount of whitespace after the actual IP address. I've left this in as Docker Hub returns it, so you may wish to do your own trimming.
 
+#### collaborators(username, repository)
+This gets the collaborators for a given repository/user combination.
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "user": "ryantheallmighty"
+    }
+]
+```
+
 #### createBuildLink(username, repository, to_repo)
 This creates a build link to a given repository to the given to_repo which should be in format 'username/repository' or just 'repository' for official repositories.
 
