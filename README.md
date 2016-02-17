@@ -446,7 +446,7 @@ Below is an example of what's returned:
 In my testing the ip_address filed contained a large amount of whitespace after the actual IP address. I've left this in as Docker Hub returns it, so you may wish to do your own trimming.
 
 #### createBuildLink(username, repository, to_repo)
-This creates a build link to a given repsitory to the given to_repo which should be in format 'username/repository' or just 'repository' for official repositories.
+This creates a build link to a given repository to the given to_repo which should be in format 'username/repository' or just 'repository' for official repositories.
 
 Below is an example of what's returned:
 
@@ -458,6 +458,36 @@ Below is an example of what's returned:
 }
 ```
 
+#### createBuildTag(username, repository, details)
+This creates a build tag to a given repository.
+
+Passing in an object with the details:
+
+```js
+{
+    dockerfile_location: '/'
+    name: 'tag-name'
+    source_name: 'master'
+    source_type: 'Branch'
+}
+```
+
+You may leave out the dockerfile_location and it will default to '/' and the same for name which will default to 'latest'.
+
+source_type is either Branch or Tag and source_name should be the name of the tag or branch to build from. source_type will default to 'Branch' if left out.
+
+Below is an example of what's returned:
+
+```json
+{
+    "id": 228073,
+    "name": "tag-name",
+    "dockerfile_location": "/",
+    "source_name": "master",
+    "source_type": "Branch"
+}
+```
+
 #### createRepository(username, name, details)
 This creates a new repository under the username and name provided with the details provided.
 
@@ -465,8 +495,8 @@ Passing in an object with the details:
 
 ```js
 {
-    description: "Test",
-    full_description: "Test",
+    description: 'Test',
+    full_description: 'Test',
     is_private: false
 }
 ```
@@ -528,7 +558,12 @@ Below is an example of what's returned:
 ```
 
 #### deleteBuildLink(username, name, id)
-This deletes a build link given by the id for the given respository.
+This deletes a build link given by the id for the given repository.
+
+This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
+
+#### deleteBuildTag(username, name, id)
+This deletes a build tag given by the id for the given repository.
 
 This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
 
@@ -544,10 +579,77 @@ This deletes a webhook for a repository you own.
 
 This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
 
+#### saveBuildTag(username, repository, id, details)
+This saves the details of a given build tag id in the given repository.
+
+Passing in an object with the details:
+
+```js
+{
+    name: 'tag-name'
+    dockerfile_location: '/'
+    source_name: 'master'
+    source_type: 'Branch'
+}
+```
+
+You may leave out the dockerfile_location and it will default to '/'.
+
+source_type is either Branch or Tag and source_name should be the name of the tag or branch to build from. source_name will default to 'master' and source_type will default to 'Branch' if left out.
+
+Below is an example of what's returned:
+
+```json
+{
+    "id": 213845,
+    "name": "latest",
+    "dockerfile_location": "/",
+    "source_name": "master",
+    "source_type": "Branch"
+}
+```
+
+Please note that trying to trigger a build with details which don't match any of the repositories build tags will have no effect and will return an empty array.
+
+
 #### starRepository(username, name)
 This stars a given repository.
 
 This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
+
+#### triggerBuild(username, repository, details)
+This triggers a build of the repository.
+
+Passing in an object with the details:
+
+```js
+{
+    dockerfile_location: '/'
+    source_name: 'master'
+    source_type: 'Branch'
+}
+```
+
+You may leave out the dockerfile_location and it will default to '/'.
+
+source_type is either Branch or Tag and source_name should be the name of the tag or branch to build from. source_name will default to 'master' and source_type will default to 'Branch' if left out.
+
+Below is an example of what's returned:
+
+```json
+[
+    {
+        "source_type": "Branch",
+        "source_name": "test",
+        "evaluated_tag_name": "latest",
+        "build_code": "bpzaqzu4nxpypzjren5vapt",
+        "msg": "Build submitted",
+        "queued_for_retry": false
+    }
+]
+```
+
+Please note that trying to trigger a build with details which don't match any of the repositories build tags will have no effect and will return an empty array.
 
 #### unstarRepository(username, name)
 This unstars a given repository.
