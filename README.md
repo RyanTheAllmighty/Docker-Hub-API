@@ -506,6 +506,73 @@ Below is an example of what's returned:
 }
 ```
 
+#### createAutomatedBuild(username, name, details)
+This creates a new automated build under the username and name provided with the details provided.
+
+Passing in an object with the details:
+
+```json
+{
+    "build_tags": [
+        {
+            "name": "latest",
+            "source_type": "Branch",
+            "source_name": "master",
+            "dockerfile_location": "/"
+        },
+        {
+            "name": "test",
+            "source_type": "Branch",
+            "source_name": "test",
+            "dockerfile_location": "/"
+        }
+    ],
+    "description": "Test",
+    "is_private": false,
+    "provider": "github",
+    "vcs_repo_name": "ryantheallmighty/allmightybot-node-server"
+}
+```
+
+If no build_tags are provided then it will create the default build tag of tag name 'latest' on branch 'master' with a dockerfile location of '/'.
+
+Below is an example of what's returned:
+
+```json
+{
+    "repository": 532085,
+    "build_name": "RyanTheAllmighty/AllmightyBot-Node-Server",
+    "provider": "github",
+    "source_url": "https://github.com/RyanTheAllmighty/AllmightyBot-Node-Server.git",
+    "docker_url": "ryantheallmighty/allmightybot-node-server",
+    "repo_web_url": "https://github.com/RyanTheAllmighty/AllmightyBot-Node-Server",
+    "repo_type": "git",
+    "active": true,
+    "repo_id": 30229068,
+    "build_tags": [
+        {
+            "id": 228108,
+            "name": "test",
+            "dockerfile_location": "/",
+            "source_name": "test",
+            "source_type": "Branch"
+        },
+        {
+            "id": 228107,
+            "name": "latest",
+            "dockerfile_location": "/",
+            "source_name": "master",
+            "source_type": "Branch"
+        }
+    ],
+    "deploykey": null,
+    "hook_id": null,
+    "webhook_id": 7336911
+}
+```
+
+Please note that the only 2 providers at the time of writing this are 'github' and 'bitbucket' and other source source url's and providers will most likely not work.
+
 #### createWebhook(username, name, webhookName)
 This creates a new webhook for a repository you own.
 
