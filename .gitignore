@@ -28,3 +28,6 @@ node_modules
 
 # WebStorm files
 .idea
+
+# My play file
+play.js

@@ -19,28 +19,34 @@
 (function () {
     'use strict';
 
-    let path = require('path');
-    let gulp = require('gulp');
-    let jscs = require('gulp-jscs');
-    let mocha = require('gulp-mocha');
-    let jshint = require('gulp-jshint');
+    const gulp = require('gulp');
+    const jscs = require('gulp-jscs');
+    const mocha = require('gulp-mocha');
+    const jshint = require('gulp-jshint');
+
+    const options = {
+        files: {
+            js: ['lib/**/*.js', 'test/**/*.js'],
+            tests: ['test/**/*.js']
+        }
+    };
 
     gulp.task('jshint', function () {
-        return gulp.src(['lib/**/*.js', 'test/**/*.js'])
+        return gulp.src(options.files.js)
             .pipe(jshint())
             .pipe(jshint.reporter())
             .pipe(jshint.reporter('fail'));
     });
 
     gulp.task('jscs', function () {
-        return gulp.src(['lib/**/*.js', 'test/**/*.js'])
+        return gulp.src(options.files.js)
             .pipe(jscs())
             .pipe(jscs.reporter())
             .pipe(jscs.reporter('fail'));
     });
 
     gulp.task('test', function () {
-        return gulp.src('test/**/*.js')
+        return gulp.src(options.files.tests)
             .pipe(mocha({
                 reporter: 'min',
                 clearRequireCache: true,
@@ -49,7 +55,7 @@
     });
 
     gulp.task('watch', function () {
-        gulp.watch(['lib/**/*.js', 'test/**/*.js'], ['jshint', 'jscs', 'test']);
+        gulp.watch(options.files.js, ['jshint', 'jscs', 'test']);
         gulp.start('default');
     });
 

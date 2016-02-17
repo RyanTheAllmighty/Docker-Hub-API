@@ -19,9 +19,9 @@
 (function () {
     'use strict';
 
-    let expect = require('chai').expect;
+    const expect = require('chai').expect;
 
-    let dhAPI = require('../lib/api');
+    const dhAPI = require('../src/api');
 
     describe('Docker Hub API', function () {
         this.timeout(10000);
