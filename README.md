@@ -250,6 +250,17 @@ Below is an example of what's returned:
 }
 ```
 
+#### addCollaborator(username, repository, collaborator)
+This adds the given collaborator to a given repository/user combination.
+
+Below is an example of what's returned:
+
+```json
+{
+   "user": "username"
+}
+```
+
 #### buildDetails(username, repository, code)
 This gets the details for a given build code for a given repository/user combination.
 
@@ -630,6 +641,11 @@ This method returns nothing on success, but an error in the .catch() block of th
 
 #### deleteBuildTag(username, name, id)
 This deletes a build tag given by the id for the given repository.
+
+This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
+
+#### deleteCollaborator(username, name, collaborator)
+This deletes a collaborator given by their username for the given repository.
 
 This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
 
