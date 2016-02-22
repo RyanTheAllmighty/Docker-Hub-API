@@ -2,6 +2,10 @@
 This file marks the changes in each version.
 
 ## 0.5
+### 0.5.1
+#### Fixes
+- Fix entrypoint in package.json.
+
 ### 0.5.0
 #### Additions
 - Add in methods for querying and interacting with automated builds.
