@@ -126,6 +126,51 @@
             }.bind(this));
         },
         /**
+         * Adds a collaborator to the given repository.
+         *
+         * @param {String} organisation - the organisation to add a group to
+         * @param {String} repository - the name of the repository to add a group to
+         * @param {Object} group - {id, name} - description of the group to add
+         * @param {String} permission - read/write/admin - the prmission to add
+         * @returns {Promise}
+         */
+        addGroup: function (organisation, repository, group, permission) {
+            return new Promise(function (resolve, reject) {
+                if (!organisation || typeof organisation !== 'string') {
+                    return reject(new Error('Organisation name must be provided!'));
+                }
+
+                if (!repository || typeof repository !== 'string') {
+                    return reject(new Error('Repository name must be provided!'));
+                }
+
+                if (!group || typeof group !== 'object') {
+                    return reject(new Error('Group description must be provided!'));
+                }
+
+                    if (!group.id || typeof group.id !== 'string') {
+                    return reject(new Error('group.id must be provided!'));
+                }
+
+                    if (!group.name || typeof group.name !== 'string') {
+                    return reject(new Error('group.name must be provided!'));
+                }
+
+                    if (!permission || typeof permission !== 'string') {
+                    return reject(new Error('Permission must be provided!'));
+                }
+
+                // Make sure the username/collaborator is all lowercase as per Docker Hub requirements
+                organisation = organisation.toLowerCase();
+                group.name = group.name.toLowerCase();
+
+                this.makePostRequest(
+                    `repositories/${organisation}/${repository}/groups/`,
+                    {group_name: group.name, group_id: group.id, permission: permission}
+                ).then(resolve).catch(reject);
+            }.bind(this));
+        },
+        /**
          * Gets the details for a given build of a repository.
          *
          * @param {String} username - the username to get the comments for
@@ -736,6 +781,28 @@
 
                 return this.makeDeleteRequest(`repositories/${username}/${name}/webhooks/${webhookID}/`).then(resolve).catch(reject);
             }.bind(this));
+        },
+        /**
+         * Returns grups/permissions for organisation/repository
+         *
+         * @param {String} organisation - the organisation of the repository to return groups for
+         * @param {String} repository - the name of the repository to return groups for
+         * @returns {Promise}
+         */
+        getGroups: function(organisation, repository) {
+            return new Promise(function (resolve, reject) {
+                if (!organisation || typeof organisation !== 'string') {
+                        return reject(new Error('Organisation name must be provided!'));
+                }
+
+                if (!repository || typeof repository !== 'string') {
+                        return reject(new Error('Repository name must be provided!'));
+                }
+
+                organisation = username.toLowerCase();
+
+                this.makeGetRequest(`repositories/${organisation}/${repository}/groups`).then(resolve).catch(reject);
+            }).bind(this);
         },
         /**
          * This gets the registry settings for the current logged in user containing information about the number of private repositories used/available.
