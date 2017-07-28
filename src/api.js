@@ -1051,7 +1051,7 @@
                 // Make sure the username is all lowercase as per Docker Hub requirements
                 username = username.toLowerCase();
 
-                this.makeGetRequest(`repositories/${username}/${name}/repositories/webhooks?page_size=${options.perPage || 100}&page=${options.page || 1}`, 'results').then(resolve).catch(reject);
+                this.makeGetRequest(`repositories/${username}/${name}/webhooks?page_size=${options.perPage || 100}&page=${options.page || 1}`, 'results').then(resolve).catch(reject);
             }.bind(this));
         },
         /**
