@@ -1,6 +1,10 @@
 # Changes
 This file marks the changes in each version.
 
+## 0.6
+### 0.6.0
+- Add package-lock.json
+
 ## 0.5
 ### 0.5.1
 #### Fixes

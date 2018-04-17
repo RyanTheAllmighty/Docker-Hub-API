@@ -69,6 +69,8 @@ This is a complete list of methods available from this package. All methods retu
 
 There are 2 types of requests. Authenticated requests and non authenticated requests. As the names suggest, authenticated requests require you to have authenticated/logged in with Docker Hub.
 
+Since all the methods return Promises, you can use async/await.
+
 ### Non Authenticated Requests
 These requests require no authentication and can be made right away with no issues.
 
