@@ -815,7 +815,7 @@
          * @param {Object} details - an object with a the new details of the build tag
          * @returns {Promise}
          */
-        setBuildTag: function (username, name, id, details) {
+        saveBuildTag: function (username, name, id, details) {
             return new Promise(function (resolve, reject) {
                 if (!username || typeof username !== 'string') {
                     return reject(new Error('Username must be provided!'));
