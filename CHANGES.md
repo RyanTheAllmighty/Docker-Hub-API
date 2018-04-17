@@ -4,6 +4,7 @@ This file marks the changes in each version.
 ## 0.6
 ### 0.6.0
 - Add package-lock.json
+- Fix issues with createAutomatedBuild not working with users passed in parameters. Fixes #14
 
 ## 0.5
 ### 0.5.1

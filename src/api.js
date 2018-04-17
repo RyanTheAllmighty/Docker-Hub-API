@@ -443,18 +443,9 @@
                     namespace: username,
                     active: true,
                     dockerhub_repo_name: `${username}/${name}`,
-                    provider: details.provider,
-                    vcs_repo_name: details.vcs_repo_name,
-                    is_private: false
+                    is_private: false,
+                    ...details
                 };
-
-                if (typeof details.is_private === 'boolean') {
-                    obj.is_private = details.is_private;
-                }
-
-                if (details.description) {
-                    obj.description = details.description;
-                }
 
                 return this.makePostRequest(`repositories/${username}/${name}/autobuild/`, obj).then(resolve).catch(reject);
             }.bind(this));
@@ -1181,12 +1172,12 @@
 
                     // If the body has a detail property, it's only because there's an error I've found
                     if (body.detail) {
-                        return reject(new Error(body.detail));
+                        return reject(new Error(JSON.stringify(body.detail)));
                     }
 
                     // If the body has a error property, then it's errored out
                     if (body.error) {
-                        return reject(new Error(body.error));
+                        return reject(new Error(JSON.stringify(body.error)));
                     }
 
                     if (extract && body.hasOwnProperty(extract)) {

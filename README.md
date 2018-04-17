@@ -535,11 +535,19 @@ Below is an example of what's returned:
 #### createAutomatedBuild(username, name, details)
 This creates a new automated build under the username and name provided with the details provided.
 
-Passing in an object with the details:
+An example of what the Docker Hub web frontend does:
 
 ```json
 {
-    "build_tags": [
+    "name": "dotfiles",
+    "namespace": "ryantheallmighty",
+    "description": "asdasdasd",
+    "vcs_repo_name": "ryantheallmighty/dotfiles",
+    "provider": "github",
+    "dockerhub_repo_name": "ryantheallmighty/dotfiles",
+    "is_private":false,
+    "active":true,
+    "build_tags":[
         {
             "name": "latest",
             "source_type": "Branch",
@@ -547,16 +555,12 @@ Passing in an object with the details:
             "dockerfile_location": "/"
         },
         {
-            "name": "test",
+            "name": "{sourceref}",
             "source_type": "Branch",
-            "source_name": "test",
+            "source_name": "/^([^m]|.[^a]|..[^s]|...[^t]|....[^e]|.....[^r]|.{0,5}$|.{7,})/",
             "dockerfile_location": "/"
         }
-    ],
-    "description": "Test",
-    "is_private": false,
-    "provider": "github",
-    "vcs_repo_name": "ryantheallmighty/allmightybot-node-server"
+    ]
 }
 ```
 
