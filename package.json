@@ -1,6 +1,6 @@
 {
     "name": "docker-hub-api",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "Docker Hub API is an API library written for NodeJS to access the official Docker Hub/Registry",
     "main": "src/api.js",
     "engines": {
