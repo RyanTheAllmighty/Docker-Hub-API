@@ -729,6 +729,13 @@ Passing in an object with the short, full, or both descriptions:
 
 This returns the same information as [repository(username, name)](#repositoryusername-name).
 
+#### setRepositoryPrivacy(username, name, private)
+This sets the privacy (public or private) for a given repository.
+
+Pass in `true` for the `privacy` field to make the repository private, and `false` for public.
+
+This method returns nothing on success, but an error in the .catch() block of the promise indicates an error there.
+
 #### starRepository(username, name)
 This stars a given repository.
 

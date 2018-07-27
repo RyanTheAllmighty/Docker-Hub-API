@@ -1,9 +1,17 @@
 # Changes
 This file marks the changes in each version.
 
+## 0.7
+### 0.7.0
+#### Additions
+- Add in setRepositoryPrivacy option. Closes #20
+
 ## 0.6
 ### 0.6.0
+#### Additions
 - Add package-lock.json
+
+#### Fixes
 - Fix issues with createAutomatedBuild not working with users passed in parameters. Fixes #14
 - Fix saveBuildTag not being defined as in the README. Fixes #12
 
