@@ -885,20 +885,20 @@
          *
          * @param {String} username - the username
          * @param {String} name - the name of the repository
-         * @param {Boolean} private - if the repository should be private
+         * @param {Boolean} privacy - if the repository should be private
          * @returns {Promise}
          */
-        setRepositoryPrivacy: function (username, name, private) {
+        setRepositoryPrivacy: function (username, name, privacy) {
             return new Promise(function (resolve, reject) {
                 if (!username || !name || !descriptions) {
                     return reject(new Error('A username and repository name must be passed in as well as the data to set!'));
                 }
 
-                if (typeof private !== 'boolean') {
-                    return reject(new Error('Passed in private property must be a boolean!'));
+                if (typeof privacy !== 'boolean') {
+                    return reject(new Error('Passed in privacy property must be a boolean!'));
                 }
 
-                return this.makePostRequest(`repositories/${username}/${name}/privacy`, {is_private: private}).then(resolve).catch(reject);
+                return this.makePostRequest(`repositories/${username}/${name}/privacy`, { is_private: privacy}).then(resolve).catch(reject);
             }.bind(this));
         },
         /**
