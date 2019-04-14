@@ -1067,6 +1067,34 @@
             }.bind(this));
         },
         /**
+         * Checks the body response from a call to Docker Hub API to check if it's an error.
+         *
+         * @param {Object} body - the body response from the api
+         * @returns {Boolean}
+         */
+        bodyHasError(body) {
+            let detailDefined = typeof body.detail !== 'undefined';
+
+            // if there is an error object in the body, then there is likely an error
+            if (typeof body.error !== 'undefined' && body.error === true) {
+                return true;
+            }
+
+            if (!detailDefined || typeof body.error !== 'undefined' && body.error === false) {
+                return false;
+            }
+
+            // if there is a detail message in the api, but the api specifically says no error
+            // then there is no error
+            if (detailDefined && typeof body.error !== 'undefined' && body.error === false) {
+                return false;
+            }
+
+            // else fallback to behaviour of if there is a detail on the response, it's probably
+            // an error from what I've seen
+            return detailDefined;
+        },
+        /**
          * Makes a raw get request to the Docker Hub API.
          *
          * @param {String} path - the path to fetch
@@ -1090,14 +1118,9 @@
                         return reject(err);
                     }
 
-                    // If the body has a detail property, it's only because there's an error I've found
-                    if (body.detail) {
-                        return reject(new Error(body.detail));
-                    }
-
-                    // If the body has a error property, then it's errored out
-                    if (body.error) {
-                        return reject(new Error(body.error));
+                    // Check for potential error messages
+                    if (this.bodyHasError(body)) {
+                        return reject(new Error(JSON.stringify(body)));
                     }
 
                     if (cacheEnabled) {
@@ -1109,7 +1132,7 @@
                     }
 
                     return resolve(body);
-                });
+                }.bind(this));
             }.bind(this));
         },
         /**
@@ -1149,14 +1172,9 @@
                         return reject(err);
                     }
 
-                    // If the body has a detail property, it's only because there's an error I've found
-                    if (body.detail) {
-                        return reject(new Error(body.detail));
-                    }
-
-                    // If the body has a error property, then it's errored out
-                    if (body.error) {
-                        return reject(new Error(body.error));
+                    // Check for potential error messages
+                    if (this.bodyHasError(body)) {
+                        return reject(new Error(JSON.stringify(body)));
                     }
 
                     if (extract && body.hasOwnProperty(extract)) {
@@ -1164,7 +1182,7 @@
                     }
 
                     return resolve(body);
-                });
+                }.bind(this));
             }.bind(this));
         },
         /**
@@ -1191,14 +1209,9 @@
                         return resolve();
                     }
 
-                    // If the body has a detail property, it's only because there's an error I've found
-                    if (body.detail) {
-                        return reject(new Error(JSON.stringify(body.detail)));
-                    }
-
-                    // If the body has a error property, then it's errored out
-                    if (body.error) {
-                        return reject(new Error(JSON.stringify(body.error)));
+                    // Check for potential error messages
+                    if (this.bodyHasError(body)) {
+                        return reject(new Error(JSON.stringify(body)));
                     }
 
                     if (extract && body.hasOwnProperty(extract)) {
@@ -1206,7 +1219,7 @@
                     }
 
                     return resolve(body);
-                });
+                }.bind(this));
             }.bind(this));
         },
         /**
@@ -1233,14 +1246,9 @@
                         return resolve();
                     }
 
-                    // If the body has a detail property, it's only because there's an error I've found
-                    if (body.detail) {
-                        return reject(new Error(body.detail));
-                    }
-
-                    // If the body has a error property, then it's errored out
-                    if (body.error) {
-                        return reject(new Error(body.error));
+                    // Check for potential error messages
+                    if (this.bodyHasError(body)) {
+                        return reject(new Error(JSON.stringify(body)));
                     }
 
                     if (extract && body.hasOwnProperty(extract)) {
@@ -1248,7 +1256,7 @@
                     }
 
                     return resolve(body);
-                });
+                }.bind(this));
             }.bind(this));
         },
         /**
