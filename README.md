@@ -54,6 +54,11 @@ dockerHubAPI.login(process.env.DOCKER_HUB_USERNAME, process.env.DOCKER_HUB_PASSW
 });
 ```
 
+### logout()
+This logs you out of Docker Hub.
+
+No response is sent back, but any issues will throw.
+
 ### setLoginToken(token)
 This works similar to above, but uses an existing login token so that you don't need to make a login request.
 

@@ -70,6 +70,30 @@
             );
         },
         /**
+         * This logs you out of Docker Hub.
+         *
+         * @returns {Promise}
+         */
+        logout: function() {
+            return new Promise(
+                function(resolve, reject) {
+                    if (!loggedInToken) {
+                        return reject(
+                            new Error(
+                                'No login token found! Please login() or setLoginToken() to continue!',
+                            ),
+                        );
+                    }
+
+                    this.makePostRequest('logout/')
+                        .then(function() {
+                            return resolve();
+                        })
+                        .catch(reject);
+                }.bind(this),
+            );
+        },
+        /**
          * This gets information about the current logged in user.
          *
          * @returns {Promise}
@@ -1425,14 +1449,6 @@
         makePostRequest(path, data, extract) {
             return new Promise(
                 function(resolve, reject) {
-                    if (!data || typeof data !== 'object') {
-                        return reject(
-                            new Error(
-                                'Data must be passed to all POST requests in the form of an object!',
-                            ),
-                        );
-                    }
-
                     request(
                         this.makeRequestParams('post', path, data),
                         function(err, res, body) {
