@@ -1,6 +1,14 @@
 # Changes
 This file marks the changes in each version.
 
+## 0.8
+### 0.8.0
+#### Additions
+- Add `logout()` method
+
+#### Fixes
+- Fix the logic around error throwing in requests with `error: false` in the response
+
 ## 0.7
 ### 0.7.0
 #### Additions
