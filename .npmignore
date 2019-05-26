@@ -1,8 +1,5 @@
-test/
+src/__tests__/
 
 .gitattributes
 .gitignore
-.jscsrc
-.jshintrc
-gulpfile.js
-STYLE.md
+play.js
