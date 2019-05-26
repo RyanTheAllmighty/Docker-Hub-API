@@ -19,16 +19,24 @@
     "scripts": {
         "test": "gulp"
     },
+    "husky": {
+      "hooks": {
+        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      }
+    },
     "dependencies": {
         "lodash": "^3.10.1",
         "request": "^2.67.0"
     },
     "devDependencies": {
+        "@commitlint/cli": "^7.6.1",
+        "@commitlint/config-conventional": "^7.6.0",
         "chai": "^3.3.0",
         "gulp": "^3.9.0",
         "gulp-jscs": "^3.0.2",
         "gulp-jshint": "^1.12.0",
         "gulp-mocha": "^2.2.0",
+        "husky": "^2.3.0",
         "mocha": "^2.3.3",
         "sinon": "^1.17.1"
     }
