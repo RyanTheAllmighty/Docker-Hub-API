@@ -20,7 +20,7 @@
         "test": "gulp"
     },
     "dependencies": {
-        "lodash": "^3.10.1",
+        "lodash": "^4.17.13",
         "request": "^2.67.0"
     },
     "devDependencies": {
