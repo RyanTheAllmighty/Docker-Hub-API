@@ -2,6 +2,10 @@
 This file marks the changes in each version.
 
 ## 0.8
+### 0.8.1
+#### Additions
+- set the registry url via setRegistryUrl(url). default is https://hub.docker.com
+
 ### 0.8.0
 #### Additions
 - Add `logout()` method

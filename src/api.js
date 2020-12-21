@@ -29,8 +29,18 @@
     let cacheTimeSeconds = 300;
 
     let loggedInToken = null;
+    let registryUrl = 'https://hub.docker.com';
 
     module.exports = {
+        /**
+         * set the registru url without version or path.
+         * eg: https://hub.docker.com or http://localhost:3000
+         * default: https://hub.docker.com
+         * @param string url
+         */
+        setRegistryUrl: function (url) {
+          registryUrl = url;
+        },
         /**
          * This logs into Docker Hub with the given username and password.
          *
@@ -1541,7 +1551,7 @@
                 path = path + '/';
             }
 
-            let url = `https://hub.docker.com/v${apiVersion}/${path}`;
+            let url = registryUrl + `/v${apiVersion}/${path}`;
 
             let headers = {};
 
