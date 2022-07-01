@@ -1308,19 +1308,27 @@
          */
         bodyHasError(body) {
             let detailDefined = typeof body.detail !== 'undefined';
+            let errinfoDefined = typeof body.errinfo !== 'undefined';
+            let errorDefined = typeof body.error !== 'undefined';
+            let messageDefined = typeof body.message !== 'undefined';
 
-            // if there is an error object in the body, then there is likely an error
-            if (typeof body.error !== 'undefined' && body.error === true) {
+            // if there is an errinfo and message object in the body, then there is likely an error
+            if (errinfoDefined && messageDefined) {
                 return true;
             }
 
-            if (!detailDefined || (typeof body.error !== 'undefined' && body.error === false)) {
+            // if there is an error object in the body, then there is likely an error
+            if (errorDefined && body.error === true) {
+                return true;
+            }
+
+            if (!detailDefined || (errorDefined && body.error === false)) {
                 return false;
             }
 
             // if there is a detail message in the api, but the api specifically says no error
             // then there is no error
-            if (detailDefined && typeof body.error !== 'undefined' && body.error === false) {
+            if (detailDefined && errorDefined && body.error === false) {
                 return false;
             }
 
